@@ -15,23 +15,26 @@ import ShopifyServicesSection from './Components/ShopifyBuildLanding'
 import ShopifyStrategyLanding from './Components/ShopifyStrategyLanding'
 
 function App() {
- 
+
   return (
     <>
       <Header />
+      <button className="bg-[#D5FF3F]  md:hidden  fixed z-50 w-full bottom-0 text-black px-8 py-2 font-semibold hover:bg-lime-300 transition-colors">
+        Audit My Store
+      </button>
       <ABMediaLanding />
-      <IconsLooper/>
-      <ShopifyServicesSection/>
-      <EcommerceCarousel/>
-      <Partners/>
-      <CaseStudies/>
-      <ServicesGrid/>
-      <Phases/>
-      <PricingComponent/>
-      <ShopifyStrategyLanding/>
-      <ForgeBrilliancePage/>
-      <FAQComponent/>
-      <ABMediaFooter/>
+      <IconsLooper />
+      <ShopifyServicesSection />
+      <EcommerceCarousel />
+      <Partners />
+      <CaseStudies />
+      <ServicesGrid />
+      <Phases />
+      <PricingComponent />
+      <ShopifyStrategyLanding />
+      <ForgeBrilliancePage />
+      <FAQComponent />
+      <ABMediaFooter />
     </>
   )
 }
