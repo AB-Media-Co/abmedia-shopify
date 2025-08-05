@@ -134,11 +134,15 @@ export default function ABMediaFooter() {
                 </div>
             </div>
 
-            <h2
+            {/* <h2
                 className="text-7xl md:text-9xl text-center font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-[#d1d1d1] via-[#8a8a8a] to-[#1f1f1f] drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]"
             >
                 ab media
-            </h2>
+            </h2> */}
+            <div className='max-w-7xl mx-auto p-8'>
+                <img src="/abm-d.svg" alt="" className='hidden md:block' />
+                <img src="/abm-m.svg" alt="" className='md:hidden' />
+            </div>
 
 
 

@@ -41,38 +41,37 @@ const CaseStudies = () => (
       backgroundRepeat: 'no-repeat',
     }}
   >
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       <h2 className="text-center text-white text-4xl font-light tracking-widest mb-12">
         <span className="opacity-60">CASE</span>{' '}
         <span className="font-bold">STUDIES</span>
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-        {caseStudies.map((item) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 md:gap-y-8">
+        {caseStudies.map((item, index) => (
           <div
             key={item.id}
-            className="relative rounded-lg overflow-hidden shadow-xl group"
+            className={`relative rounded-lg overflow-hidden shadow-xl group transition-transform duration-300 hover:-translate-y-2 ${
+              // Desktop mein alternating pattern - odd cards upar, even cards neeche
+              index % 2 === 0 ? 'md:mt-0' : 'md:mt-28'
+            }`}
           >
             <img
               src={item.image}
               alt={item.title}
-              className="w-full h-[420px] object-cover"
+              className="w-full h-[480px] md:h-[520px] object-cover"
               loading="lazy"
             />
-            {/* overlay gradient for readability */}
 
-            <div className=" py-6 text-white flex flex-col gap-3">
+            <div className="py-6 text-white flex flex-col gap-3">
               <h3 className="text-xl font-semibold">{item.title}</h3>
               <p className="text-sm opacity-90 leading-relaxed">{item.desc}</p>
               <div>
-                <button className="inline-block border border-white px-5 py-2  text-sm font-medium transition-all hover:bg-white hover:text-black">
+                <button className="inline-block border border-white px-5 py-2 text-sm font-medium transition-all hover:bg-white hover:text-black">
                   {item.button}
                 </button>
               </div>
             </div>
-
-            {/* subtle hover lift */}
-            <div className="absolute inset-0 transition-transform duration-300 group-hover:-translate-y-1.5" aria-hidden="true" />
           </div>
         ))}
       </div>

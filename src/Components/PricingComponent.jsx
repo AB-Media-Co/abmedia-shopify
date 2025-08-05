@@ -1,4 +1,5 @@
 import React from 'react';
+import PopupButton from './PopupButton';
 
 const PricingComponent = () => {
     return (
@@ -34,9 +35,15 @@ const PricingComponent = () => {
                             </div>
                         </div>
 
-                        <button className="bg-[#D5FF3F] text-black px-8 py-2  font-medium hover:bg-lime-300 transition-colors duration-200 mb-8">
+                        {/* <button className="bg-[#D5FF3F] text-black px-8 py-2  font-medium hover:bg-lime-300 transition-colors duration-200 mb-8">
                             Get started →
-                        </button>
+                        </button> */}
+
+                        <div className=" flex justify-center py-4 md:justify-start ">
+
+                            <PopupButton text='Get started →' className='bg-[#D5FF3F] text-black font-semibold px-4 sm:px-6 py-3 text-sm sm:text-base tracking-wide shadow-md transition-all duration-200 hover:bg-[#c4ef2f] hover:shadow-lg w-full sm:w-auto max-w-sm sm:max-w-none text-center' />
+                       
+                        </div>
 
                         <p className="text-gray-300 text-sm md:text-base leading-relaxed max-w-lg">
                             We Tailor Every Project To Your Brand Goals, Tech Needs, And Growth Stage. Whether It's

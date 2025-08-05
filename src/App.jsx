@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css'
 import ABMediaFooter from './Components/ABMediaFooter'
 import ABMediaLanding from './Components/ABMediaLanding'
@@ -13,15 +14,21 @@ import PricingComponent from './Components/PricingComponent'
 import ServicesGrid from './Components/ServicesGrid'
 import ShopifyServicesSection from './Components/ShopifyBuildLanding'
 import ShopifyStrategyLanding from './Components/ShopifyStrategyLanding'
+import ContactForm from './Components/ContactForm'
 
 function App() {
+  const [showForm, setShowForm] = useState(false)
 
   return (
     <>
       <Header />
-      <button className="bg-[#D5FF3F]  md:hidden  fixed z-50 w-full bottom-0 text-black px-8 py-2 font-semibold hover:bg-lime-300 transition-colors">
+      <button
+        className="bg-[#D5FF3F] md:hidden font-medium text-3xl fixed z-50 w-full bottom-0 text-black px-8 py-2 hover:bg-lime-300 transition-colors"
+        onClick={() => setShowForm(true)}
+      >
         Audit My Store
       </button>
+
       <ABMediaLanding />
       <IconsLooper />
       <ShopifyServicesSection />
@@ -35,6 +42,18 @@ function App() {
       <ForgeBrilliancePage />
       <FAQComponent />
       <ABMediaFooter />
+
+       <ContactForm
+        isPopup={true}
+        isOpen={showForm}
+        onClose={() => setShowForm(false)}
+        title="Let's Audit Your Shopify Store"
+        buttonText="Get My Audit"
+        onSubmit={(data) => {
+          console.log('form data:', data)
+          // any extra handling…
+        }}
+      />
     </>
   )
 }

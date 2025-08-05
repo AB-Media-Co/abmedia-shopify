@@ -85,11 +85,6 @@ const TestimonialsCarousel = () => {
   const goNext = () => setSlide((prev) => (prev + 1) % totalSlides);
   const goPrev = () => setSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
 
-  const visibleTestimonials = testimonials.slice(
-    slide * cardsPerSlide, 
-    slide * cardsPerSlide + cardsPerSlide
-  );
-
   const StarRating = ({ rating }) => (
     <div className="flex gap-1 mb-4">
       {[...Array(5)].map((_, i) => (
@@ -123,7 +118,7 @@ const TestimonialsCarousel = () => {
         {/* Navigation Arrows */}
         <button
           onClick={goPrev}
-          className="md:block absolute hidden left-2 sm:left-6 top-1/2 -translate-y-1/2 bg-white text-black p-2 sm:p-3 rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-110 shadow-lg z-10"
+          className="md:block absolute hidden left-2 sm:left-6 top-[16rem] -translate-y-1/2 bg-white text-black p-2 sm:p-3 rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-110 shadow-lg z-10"
           aria-label="Previous testimonials"
         >
           <ChevronLeft size={24} />
@@ -131,45 +126,60 @@ const TestimonialsCarousel = () => {
 
         <button
           onClick={goNext}
-          className="md:block absolute hidden right-2 sm:right-6 top-1/2 -translate-y-1/2 bg-white text-black p-2 sm:p-3 rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-110 shadow-lg z-10"
+          className="md:block absolute hidden right-2 sm:right-6 top-[16rem] -translate-y-1/2 bg-white text-black p-2 sm:p-3 rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-110 shadow-lg z-10"
           aria-label="Next testimonials"
         >
           <ChevronRight size={24} />
         </button>
 
-        {/* Testimonials Grid */}
+        {/* Testimonials Carousel Container */}
         <div className="flex justify-center px-4 sm:px-16">
-          <div className={`
-            grid gap-6 w-full max-w-6xl
-            ${isMobile ? 'grid-cols-1' : isTablet ? 'grid-cols-2' : 'grid-cols-3'}
-          `}>
-            {visibleTestimonials.map((testimonial) => (
-              <div
-                key={testimonial.id}
-                className="bg-white  p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 min-h-[280px] flex flex-col"
-              >
-                <StarRating rating={testimonial.rating} />
-                
-                <p className="text-gray-800 text-sm sm:text-base leading-relaxed mb-6 flex-grow font-medium">
-                  {testimonial.text}
-                </p>
-                
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <Avatar name={testimonial.name} avatar={testimonial.avatar} />
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900 text-sm">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-gray-600 text-xs">
-                      {testimonial.role}
-                    </p>
-                    <p className="text-blue-600 text-xs font-medium">
-                      {testimonial.company}
-                    </p>
-                  </div>
+          <div className="w-full max-w-6xl overflow-hidden">
+            <div 
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${slide * 100}%)`
+              }}
+            >
+              {Array.from({ length: totalSlides }).map((_, slideIndex) => (
+                <div 
+                  key={slideIndex}
+                  className={`w-full flex-shrink-0 grid gap-6 ${
+                    isMobile ? 'grid-cols-1' : isTablet ? 'grid-cols-2' : 'grid-cols-3'
+                  }`}
+                >
+                  {testimonials
+                    .slice(slideIndex * cardsPerSlide, slideIndex * cardsPerSlide + cardsPerSlide)
+                    .map((testimonial) => (
+                      <div
+                        key={testimonial.id}
+                        className="bg-white p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:scale-105 min-h-[280px] flex flex-col"
+                      >
+                        <StarRating rating={testimonial.rating} />
+                        
+                        <p className="text-gray-800 text-sm sm:text-base leading-relaxed mb-6 flex-grow font-medium">
+                          {testimonial.text}
+                        </p>
+                        
+                        <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                          <Avatar name={testimonial.name} avatar={testimonial.avatar} />
+                          <div className="flex-1">
+                            <h4 className="font-semibold text-gray-900 text-sm">
+                              {testimonial.name}
+                            </h4>
+                            <p className="text-gray-600 text-xs">
+                              {testimonial.role}
+                            </p>
+                            <p className="text-blue-600 text-xs font-medium">
+                              {testimonial.company}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
@@ -180,7 +190,7 @@ const TestimonialsCarousel = () => {
               key={idx}
               onClick={() => setSlide(idx)}
               className={`
-                h-1  transition-all duration-300
+                h-1 transition-all duration-300
                 ${idx === slide
                   ? 'w-8 md:w-16 bg-white shadow-lg'
                   : 'w-2 md:w-10 bg-gray-600 hover:bg-gray-400'

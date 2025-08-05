@@ -1,5 +1,6 @@
 import React from 'react';
 import TestimonialsCarousel from './TestimonialsCarousel';
+import PopupButton from './PopupButton';
 
 const Phases = () => {
     return (
@@ -20,10 +21,15 @@ const Phases = () => {
                         <span className="text-white">LAUNCH</span>
                     </h1>
                     <p className="text-gray-300 text-center md:text-left text-xl mb-8">Our 4 Phase Delivery Flow</p>
-                    <div className="flex justify-center md:justify-start">
+                    {/* <div className="flex justify-center md:justify-start">
                         <button className="bg-[#D5FF3F] text-black px-6 py-3 font-semibold hover:bg-lime-300 transition-colors max-w-[300px]">
                             Get A Free 1:1 Consultation
                         </button>
+                    </div> */}
+
+                    <div className=" flex justify-center md:justify-start ">
+
+                        <PopupButton text='Get A Free 1:1 Consultation' className='bg-[#D5FF3F] text-black font-semibold px-4 sm:px-6 py-3 text-sm sm:text-base tracking-wide shadow-md transition-all duration-200 hover:bg-[#c4ef2f] hover:shadow-lg w-full sm:w-auto max-w-sm sm:max-w-none text-center' />
                     </div>
 
                 </div>
@@ -40,8 +46,8 @@ const Phases = () => {
                         </div>
                         <div className="md:absolute z-10 top-[-40px] left-[22rem]">
                             <div
-                            
-                            className="w-64 h-64 rounded-full bg-gradient-to-b from-[#232323] from-90% to-[#D5FF3F]/50 flex flex-col items-center justify-center text-center shadow-lg">
+
+                                className="w-64 h-64 rounded-full bg-gradient-to-b from-[#232323] from-90% to-[#D5FF3F]/50 flex flex-col items-center justify-center text-center shadow-lg">
                                 <div className="text-6xl font-bold text-white mb-2">2</div>
                                 <div className="text-lg font-bold text-white mb-2 uppercase">Blueprint</div>
                                 <div className="text-sm text-white">Wireframe, UI/UX, tech strategy</div>

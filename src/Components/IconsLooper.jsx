@@ -13,22 +13,21 @@ const IconsLooper = () => {
     ];
 
     return (
-        <div className="w-full bg-[#D5FF3F] py-2 sm:py-3 md:py-4 lg:py-6 overflow-hidden">
-            <div className="flex animate-scroll overflow-hidden">
+        <div className="w-full bg-[#D5FF3F]  py-2 sm:py-3 md:py-4 lg:py-6 overflow-hidden">
+            <div className="flex animate-scroll overflow-hidden mx-auto">
                 {/* First set of icons */}
-                <div className="flex items-center space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12 xl:space-x-16 px-4 sm:px-6 md:px-8">
+                <div className="flex items-center gap-6 px-4 sm:px-6 md:px-8">
                     {iconNames.map((iconName, index) => (
                         <div key={`first-${index}`} className="flex-shrink-0">
                             <img 
                                 src={`/Icons/${iconName}.svg`} 
                                 alt={iconName}
-                                className="h-4 w-auto 
-                                         xs:h-5
-                                         sm:h-6 
+                                className="w-auto 
+                                       h-6 
                                          md:h-8 
                                          lg:h-10 
                                          xl:h-12 
-                                         max-w-[60px] sm:max-w-[80px] md:max-w-[100px] lg:max-w-[120px] xl:max-w-[140px]
+                                        max-w-[80px] md:max-w-[100px] lg:max-w-[120px] xl:max-w-[140px]
                                          object-contain 
                                          transition-transform duration-300 hover:scale-110"
                             />
@@ -37,19 +36,18 @@ const IconsLooper = () => {
                 </div>
                 
                 {/* Duplicate set for seamless loop */}
-                <div className="flex items-center space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12 xl:space-x-16 px-4 sm:px-6 md:px-8">
+                <div className="flex items-center gap-6 px-4 sm:px-6 md:px-8">
                     {iconNames.map((iconName, index) => (
                         <div key={`second-${index}`} className="flex-shrink-0">
                             <img 
                                 src={`/Icons/${iconName}.svg`} 
                                 alt={iconName}
-                                className="h-4 w-auto 
-                                         xs:h-5
-                                         sm:h-6 
+                                className=" w-auto 
+                                    h-6 
                                          md:h-8 
                                          lg:h-10 
                                          xl:h-12 
-                                         max-w-[60px] sm:max-w-[80px] md:max-w-[100px] lg:max-w-[120px] xl:max-w-[140px]
+                                        max-w-[80px] md:max-w-[100px] lg:max-w-[120px] xl:max-w-[140px]
                                          object-contain 
                                          transition-transform duration-300 hover:scale-110"
                             />
@@ -58,7 +56,7 @@ const IconsLooper = () => {
                 </div>
 
                 {/* Third set for mobile to ensure smooth loop */}
-                <div className="flex items-center space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12 xl:space-x-16 px-4 sm:px-6 md:px-8 sm:hidden">
+                <div className="flex items-center gap-6 px-4 sm:px-6 md:px-8 sm:hidden">
                     {iconNames.map((iconName, index) => (
                         <div key={`third-${index}`} className="flex-shrink-0">
                             <img 

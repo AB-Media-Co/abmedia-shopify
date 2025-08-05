@@ -1,4 +1,5 @@
 import React from 'react';
+import PopupButton from './PopupButton';
 
 const services = [
     {
@@ -68,7 +69,7 @@ const ServiceCard = ({ title, subtitle, icon }) => (
 );
 
 const ServicesGrid = () => (
-    <section className="py-12 sm:py-16 bg-black text-white">
+    <section className="py-12 sm:py-16 bg-black ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
             {/* Header */}
             <h2 className="text-center text-white text-2xl sm:text-3xl lg:text-4xl font-light tracking-wide sm:tracking-widest mb-8 sm:mb-12 px-4">
@@ -89,11 +90,16 @@ const ServicesGrid = () => (
             </div>
 
             {/* Call to Action Button */}
-            <div className="mt-8 sm:mt-12 flex justify-center px-4">
+            {/* <div className="mt-8 sm:mt-12 flex justify-center px-4">
                 <button className="bg-[#D5FF3F] text-black font-semibold px-4 sm:px-6 py-3 text-sm sm:text-base tracking-wide shadow-md transition-all duration-200 hover:bg-[#c4ef2f] hover:shadow-lg w-full sm:w-auto max-w-sm sm:max-w-none text-center">
                     Transform Your Business Today &gt;
                 </button>
+            </div> */}
+            <div className="mt-8 sm:mt-12 flex justify-center px-4">
+           
+            <PopupButton className='bg-[#D5FF3F] text-black font-semibold px-4 sm:px-6 py-3 text-sm sm:text-base tracking-wide shadow-md transition-all duration-200 hover:bg-[#c4ef2f] hover:shadow-lg w-full sm:w-auto max-w-sm sm:max-w-none text-center'/>
             </div>
+
         </div>
     </section>
 );
