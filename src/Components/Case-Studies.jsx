@@ -4,32 +4,33 @@ const caseStudies = [
   {
     id: 1,
     image: '/case-studies/1.png',
-    title: 'SKINCARE D2C BRAND',
-    desc:`Rebuilt store using Shopify 2.0 + Klaviyo + UGC integration CR ↑ 42% | AOV ↑ 21% | Bounce ↓ 36%`,
+    title: 'Kisa Candles',
+    desc: `Migrated to Shopify, built conversion-focused funnel → Result: 7X ROAS with Shopify + Meta + WhatsApp in < 90 days`,
     button: 'View Case Study',
   },
   {
     id: 2,
     image: '/case-studies/2.png',
-    title: 'ELECTRONICS RETAILER',
-    desc: `Migrated from Magento to Hydrogen + Oxygen Load time ↓ from 6.3s to 1.9s | Revenue doubled in 90 days`,
+    title: 'By The Nature',
+    desc: `Shopify theme + UGC integration + WhatsApp COD flows → Result: 42% CR improvement within 6 weeks of relaunch`,
     button: 'View Case Study',
   },
   {
     id: 3,
     image: '/case-studies/3.png',
-    title: 'COFFEE SUBSCRIPTION BRAND',
-    desc: `Shopify Plus + Recharge + WhatsApp Flows Subscription CR ↑ 56% | COD failure ↓ 31%`,
+    title: 'Mahajan Electronics',
+    desc: `Full redesign + Razorpay/Shiprocket integration + retargeting setup + ZipCode Validator → Result: ₹10 Lakh+ generated in a single month, Meta ROAS scaled 15X`,
     button: 'View Case Study',
   },
   {
     id: 4,
     image: '/case-studies/4.png',
-    title: 'INTERIOR DÉCOR B2B SITE',
-    desc:`Built quote-based portal using Shopify + custom apps → 3x faster product inquiry handling, sales ↑ 2.1x in Q2`,
+    title: 'Juhi Nanda',
+    desc: `Shopify + Interakt + bundled offers + checkout optimization → Result: 5.6X blended ROAS, COD failure reduced by 27%`,
     button: 'View Case Study',
   },
 ];
+
 
 const CaseStudies = () => (
   <section
