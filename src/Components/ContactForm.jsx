@@ -275,7 +275,7 @@ const ContactForm = ({
                     <div className="w-full max-w-[600px] mx-auto" onClick={(e) => e.stopPropagation()}>
                         <div className={`bg-white rounded-2xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto ${className}`}>
                             {isPopup && (
-                                <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10">
+                                <button onClick={onClose} className="absolute cursor-pointer top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10">
                                     <X className="w-6 h-6" />
                                 </button>
                             )}
@@ -349,7 +349,7 @@ const ContactForm = ({
                                     </div>
 
                                     <button type="button" onClick={handleNext} disabled={isLoading || !isFormValid()}
-                                        className="w-full bg-black text-white py-4 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                                        className="w-full cursor-pointer bg-black text-white py-4 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
                                         {isLoading ? (
                                             <>
                                                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -378,17 +378,17 @@ const ContactForm = ({
                                     </div>
 
                                     <button onClick={handleVerifyOTP} disabled={isVerifying || isSubmitting}
-                                        className="w-full bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-medium transition-all text-sm sm:text-base mb-4">
+                                        className="w-full cursor-pointer bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-medium transition-all text-sm sm:text-base mb-4">
                                         {isVerifying ? 'Verifying OTP...' : isSubmitting ? 'Sending Emails...' : buttonText}
                                     </button>
 
                                     <button onClick={handleResendOTP}
-                                        className="text-xs sm:text-sm text-black hover:text-gray-800 font-medium mb-4 transition-colors block mx-auto">
+                                        className="text-xs cursor-pointer sm:text-sm text-black hover:text-gray-800 font-medium mb-4 transition-colors block mx-auto">
                                         Resend OTP
                                     </button>
 
                                     <button onClick={() => { setStep(1); setOtp(''); }}
-                                        className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg font-medium transition-colors flex items-center justify-center text-sm sm:text-base">
+                                        className="w-full cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg font-medium transition-colors flex items-center justify-center text-sm sm:text-base">
                                         <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                                         </svg>
@@ -408,7 +408,7 @@ const ContactForm = ({
         <div className="w-full max-w-[600px] mx-auto">
             <div className={`bg-white rounded-2xl p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto ${className}`}>
                 {isPopup && (
-                    <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10">
+                    <button onClick={onClose} className="absolute cursor-pointer top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10">
                         <X className="w-6 h-6" />
                     </button>
                 )}
@@ -482,7 +482,7 @@ const ContactForm = ({
                         </div>
 
                         <button type="button" onClick={handleNext} disabled={isLoading || !isFormValid()}
-                            className="w-full bg-black text-white py-4 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                            className="w-full cursor-pointer bg-black text-white py-4 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
                             {isLoading ? (
                                 <>
                                     <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -511,17 +511,17 @@ const ContactForm = ({
                         </div>
 
                         <button onClick={handleVerifyOTP} disabled={isVerifying || isSubmitting}
-                            className="w-full bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-medium transition-all text-sm sm:text-base mb-4">
+                            className="w-full cursor-pointer bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-medium transition-all text-sm sm:text-base mb-4">
                             {isVerifying ? 'Verifying OTP...' : isSubmitting ? 'Sending Emails...' : buttonText}
                         </button>
 
                         <button onClick={handleResendOTP}
-                            className="text-xs sm:text-sm text-black hover:text-gray-800 font-medium mb-4 transition-colors block mx-auto">
+                            className="text-xs cursor-pointer sm:text-sm text-black hover:text-gray-800 font-medium mb-4 transition-colors block mx-auto">
                             Resend OTP
                         </button>
 
                         <button onClick={() => { setStep(1); setOtp(''); }}
-                            className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg font-medium transition-colors flex items-center justify-center text-sm sm:text-base">
+                            className="w-full cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg font-medium transition-colors flex items-center justify-center text-sm sm:text-base">
                             <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                             </svg>

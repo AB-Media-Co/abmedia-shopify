@@ -23,12 +23,12 @@ export default function ShopifyStrategyLanding() {
 
                         {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="bg-[#D5FF3F] text-black font-semibold px-8 py-2 transition-colors duration-200 flex items-center justify-center gap-2">
+                            <button className="bg-[#D5FF3F] cursor-pointer  text-black font-semibold px-8 py-2 transition-colors duration-200 flex items-center justify-center gap-2">
                                 Book My Shopify Strategy Call
                                 <Phone size={20} />
                             </button>
 
-                            <button className=" text-white font-semibold px-8 py-2 border border-white  transition-colors duration-200 flex items-center justify-center gap-2">
+                            <button className="cursor-pointer  text-white font-semibold px-8 py-2 border border-white  transition-colors duration-200 flex items-center justify-center gap-2">
                                 Download the Audit PDF
                             </button>
                         </div>

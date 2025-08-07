@@ -6,7 +6,7 @@ export default function PopupButton({
   title = "Let's Build Your Shopify Store!",
   buttonText = 'Submit & Book Strategy Call',
   onSubmit = data => console.log(data),
-  className = 'bg-[#D5FF3F] text-black font-medium text-3xl fixed z-50 w-full bottom-0 px-8 py-2 hover:bg-lime-300 transition-colors '
+  className = 'bg-[#D5FF3F] text-black  cursor-pointer font-medium text-3xl fixed z-50 w-full bottom-0 px-8 py-2 hover:bg-lime-300 transition-colors '
 }) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -15,7 +15,7 @@ export default function PopupButton({
       {/* Trigger Button */}
       <button
         className={
-          `${className}`
+          `${className} cursor-pointer`
         }
         onClick={() => setIsOpen(true)}
       >

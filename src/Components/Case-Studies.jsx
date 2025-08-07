@@ -3,34 +3,29 @@ import React from 'react';
 const caseStudies = [
   {
     id: 1,
-    image: '/case-studies/kisa.jpg',
-    title: 'Kisa Candles',
+    video: '/case-studies/arahul.mp4',
+    title: 'Arohul',
     desc: `Migrated to Shopify, built conversion-focused funnel → Result: 7X ROAS with Shopify + Meta + WhatsApp in < 90 days`,
-    button: 'View Case Study',
   },
   {
     id: 2,
-    image: '/case-studies/bythenature.jpg',
+    video: '/case-studies/bythenature.mp4',
     title: 'By The Nature',
     desc: `Shopify theme + UGC integration + WhatsApp COD flows → Result: 42% CR improvement within 6 weeks of relaunch`,
-    button: 'View Case Study',
   },
   {
     id: 3,
-    image: '/case-studies/mahajan.jpg',
+    video: '/case-studies/mahajan.mp4',
     title: 'Mahajan Electronics',
     desc: `Full redesign + Razorpay/Shiprocket integration + retargeting setup + ZipCode Validator → Result: ₹10 Lakh+ generated in a single month, Meta ROAS scaled 15X`,
-    button: 'View Case Study',
   },
   {
     id: 4,
-    image: '/case-studies/juhi-nanda.jpg',
+    video: '/case-studies/juhi-nanda.mp4',
     title: 'Juhi Nanda',
     desc: `Shopify + Interakt + bundled offers + checkout optimization → Result: 5.6X blended ROAS, COD failure reduced by 27%`,
-    button: 'View Case Study',
   },
 ];
-
 
 const CaseStudies = () => (
   <section
@@ -52,26 +47,46 @@ const CaseStudies = () => (
         {caseStudies.map((item, index) => (
           <div
             key={item.id}
-            className={`relative rounded-lg overflow-hidden shadow-xl group transition-transform duration-300 hover:-translate-y-2 ${
-              // Desktop mein alternating pattern - odd cards upar, even cards neeche
+            className={`relative group transition-transform duration-300 hover:-translate-y-2 ${
               index % 2 === 0 ? 'md:mt-0' : 'md:mt-28'
             }`}
           >
-            <img
-              src={item.image}
-              alt={item.title}
-              className="w-full h-[480px] md:h-[520px] object-cover"
-              loading="lazy"
-            />
+            {/* Laptop Container */}
+            <div className="relative">
+              {/* Laptop Frame */}
+              <div className="relative bg-gray-800 rounded-t-lg p-3 shadow-2xl">
+                {/* Laptop Screen Bezel */}
+                <div className="bg-black rounded-lg p-2 relative overflow-hidden">
+                  {/* Video Content */}
+                  <div className="relative w-full h-[280px] bg-gray-900 rounded overflow-hidden">
+                    <video
+                      src={item.video}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    />
+                  </div>
+                </div>
+                
+                {/* Laptop Bottom */}
+                <div className="h-2 bg-gray-700 rounded-b-lg relative">
+                  <div className="absolute left-1/2 top-0 transform -translate-x-1/2 w-8 h-1 bg-gray-600 rounded-b"></div>
+                </div>
+              </div>
+              
+              {/* Laptop Base */}
+              <div className="relative">
+                <div className="w-full h-4 bg-gradient-to-b from-gray-700 to-gray-800 rounded-b-2xl shadow-lg"></div>
+                <div className="absolute inset-x-0 bottom-0 h-2 bg-gray-900 rounded-b-2xl transform scale-95"></div>
+              </div>
+            </div>
 
+            {/* Content */}
             <div className="py-6 text-white flex flex-col gap-3">
               <h3 className="text-xl font-semibold">{item.title}</h3>
               <p className="text-sm opacity-90 leading-relaxed">{item.desc}</p>
-              <div>
-                <button className="inline-block border border-white px-5 py-2 text-sm font-medium transition-all hover:bg-white hover:text-black">
-                  {item.button}
-                </button>
-              </div>
             </div>
           </div>
         ))}

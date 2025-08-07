@@ -62,7 +62,7 @@ const EcommerceCarousel = () => {
           <>
             <button
               onClick={goPrev}
-              className="absolute sm:left-[42px] top-[17rem] -translate-y-1/2 bg-lime-400 text-black p-2 sm:p-3 rounded-full hover:bg-lime-300 transition-all duration-300 hover:scale-110 shadow-lg z-10"
+              className="absolute cursor-pointer sm:left-[42px] top-[17rem] -translate-y-1/2 bg-lime-400 text-black p-2 sm:p-3 rounded-full hover:bg-lime-300 transition-all duration-300 hover:scale-110 shadow-lg z-10"
               aria-label="Previous Slide"
             >
               <ChevronLeft size={28} />
@@ -130,7 +130,7 @@ const EcommerceCarousel = () => {
         {!isMobile && (
           <button
             onClick={goNext}
-            className="absolute right-[42px] top-[17rem] -translate-y-1/2 bg-lime-400 text-black p-2 sm:p-3 rounded-full hover:bg-lime-300 transition-all duration-300 hover:scale-110 shadow-lg z-10"
+            className="absolute right-[42px] cursor-pointer top-[17rem] -translate-y-1/2 bg-lime-400 text-black p-2 sm:p-3 rounded-full hover:bg-lime-300 transition-all duration-300 hover:scale-110 shadow-lg z-10"
             aria-label="Next Slide"
           >
             <ChevronRight size={28} />

@@ -28,10 +28,10 @@ const ABMediaLanding = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="bg-[#D5FF3F] text-black px-8 py-2 font-semibold hover:bg-lime-300 transition-colors">
+                            <button className="bg-[#D5FF3F] cursor-pointer text-black px-8 py-2 font-semibold hover:bg-lime-300 transition-colors">
                                 Boost Conversions
                             </button>
-                            <button className="border border-white text-white px-8 py-2 font-semibold hover:bg-white hover:text-black transition-colors">
+                            <button className="border cursor-pointer border-white text-white px-8 py-2 font-semibold hover:bg-white hover:text-black transition-colors">
                                 Audit My Store
                             </button>
                         </div>

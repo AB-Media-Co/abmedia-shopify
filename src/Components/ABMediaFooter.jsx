@@ -3,7 +3,9 @@ import React from 'react';
 
 export default function ABMediaFooter() {
     const serviceLinks = [
+        { label: 'SEO SERVICES', href: 'https://abmediaco.com/seo-services-delhi-india/' },
         { label: 'PPC ADVERTISING', href: 'https://abmediaco.com/ppc-advertising-paid-media/' },
+
         { label: 'SOCIAL MEDIA MARKETING', href: 'https://abmediaco.com/social-media-marketing-agency-delhi/' },
         { label: 'PERFORMANCE MARKETING', href: 'https://abmediaco.com/top-performance-marketing-agency-in-gurugram/' },
         { label: 'DEVELOPMENT', href: 'https://abmediaco.com/e-commerce-development/' },
@@ -15,9 +17,9 @@ export default function ABMediaFooter() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                     {/* Company Info */}
-                    <div className="lg:col-span-1">
-                        <h2 className="text-4xl font-bold mb-4">ab media</h2>
-                        <p className="text-gray-300 text-sm leading-relaxed">
+                    <div className="lg:col-span-1 gap-2">
+                        <a href='#' className="text-4xl font-bold mb-4">ab media</a>
+                        <p className="text-gray-300 text-sm mt-4 leading-relaxed">
                             A Full-Service Performance Marketing Agency In
                             Gurugram, New Delhi, India. We Have Launched
                             50+ Brands, Captured 100+ Leads Generated 1.7
@@ -72,7 +74,7 @@ export default function ABMediaFooter() {
                             <React.Fragment key={link.href}>
                                 <a
                                     href={link.href}
-                                        className="text-gray-400 hover:text-white transition-colors text-sm block whitespace-nowrap"
+                                    className="text-gray-400 hover:text-white transition-colors text-sm block whitespace-nowrap"
                                 >
                                     {link.label}
                                 </a>
@@ -130,26 +132,20 @@ export default function ABMediaFooter() {
             <div className=" border-gray-800 hidden md:block">
                 <div className="max-w-7xl mx-auto px-6 pb-4">
                     <nav className="flex  gap-6 lg:gap-8 text-xl font-normal">
-                        <a href="#" className="text-white hover:text-lime-400 transition-colors whitespace-nowrap">
-                            SEO SERVICES
-                        </a>
-                        <span className="text-gray-600">|</span>
-                        <a href="#" className="text-white hover:text-lime-400 transition-colors whitespace-nowrap">
-                            PPC SERVICES
-                        </a>
-                        <span className="text-gray-600">|</span>
-                        <a href="#" className="text-white hover:text-lime-400 transition-colors whitespace-nowrap">
-                            SOCIAL MEDIA MARKETING SERVICES
-                        </a>
-                        <span className="text-gray-600">|</span>
-                        <a href="#" className="text-white hover:text-lime-400 transition-colors whitespace-nowrap">
-                            PERFORMANCE MARKETING
-                        </a>
-                        <span className="text-gray-600">|</span>
-                        <a href="#" className="text-white hover:text-lime-400 transition-colors whitespace-nowrap">
-                            DEVELOPMENT
-                        </a>
+                       
+                        {serviceLinks.map((link, idx) => (
+                            <React.Fragment key={link.href}>
+                                <a
+                                    href={link.href}
+                                    className="text-white hover:text-white transition-colors text-xl block whitespace-nowrap"
+                                >
+                                    {link.label}
+                                </a>
+                                {idx < serviceLinks.length - 1 && <span className="text-gray-600">|</span>}
+                            </React.Fragment>
+                        ))}
                     </nav>
+
                 </div>
             </div>
 
