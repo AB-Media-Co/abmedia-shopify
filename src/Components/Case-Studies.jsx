@@ -176,7 +176,7 @@ const CaseStudies = () => {
                       }}
                       onMouseLeave={(e) => {
                         const video = videoRefs.current[index];
-                        handleVideoHover(video, 1); // Normal speed when not hovering
+                        handleVideoHover(video, 2); // Normal speed when not hovering
                       }}
                     >
                       <LazyVideo
