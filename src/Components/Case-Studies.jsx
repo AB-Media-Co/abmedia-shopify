@@ -3,28 +3,28 @@ import React from 'react';
 const caseStudies = [
   {
     id: 1,
-    image: '/case-studies/1.png',
+    image: '/case-studies/kisa.jpg',
     title: 'Kisa Candles',
     desc: `Migrated to Shopify, built conversion-focused funnel → Result: 7X ROAS with Shopify + Meta + WhatsApp in < 90 days`,
     button: 'View Case Study',
   },
   {
     id: 2,
-    image: '/case-studies/2.png',
+    image: '/case-studies/bythenature.jpg',
     title: 'By The Nature',
     desc: `Shopify theme + UGC integration + WhatsApp COD flows → Result: 42% CR improvement within 6 weeks of relaunch`,
     button: 'View Case Study',
   },
   {
     id: 3,
-    image: '/case-studies/3.png',
+    image: '/case-studies/mahajan.jpg',
     title: 'Mahajan Electronics',
     desc: `Full redesign + Razorpay/Shiprocket integration + retargeting setup + ZipCode Validator → Result: ₹10 Lakh+ generated in a single month, Meta ROAS scaled 15X`,
     button: 'View Case Study',
   },
   {
     id: 4,
-    image: '/case-studies/4.png',
+    image: '/case-studies/juhi-nanda.jpg',
     title: 'Juhi Nanda',
     desc: `Shopify + Interakt + bundled offers + checkout optimization → Result: 5.6X blended ROAS, COD failure reduced by 27%`,
     button: 'View Case Study',
