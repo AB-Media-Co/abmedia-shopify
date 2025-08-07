@@ -58,7 +58,7 @@ const Header = () => {
                     <span className="text-xs sm:text-sm text-gray-300 mr-4 sm:mr-6 font-normal">
                         Are You Ready To Grow Your Business ?
                     </span>
-                    <button className="bg-white text-gray-900 px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold hover:bg-gray-100 transition-colors duration-200 rounded-sm">
+                    <button className="bg-white cursor-pointer text-gray-900 px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold hover:bg-gray-100 transition-colors duration-200 rounded-sm">
                         Get In Touch
                     </button>
                 </div>
