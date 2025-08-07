@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 const caseStudies = [
   {
@@ -27,72 +27,91 @@ const caseStudies = [
   },
 ];
 
-const CaseStudies = () => (
-  <section
-    className="py-16 px-4"
-    style={{
-      backgroundImage: "url('/Case-studies.png')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-    }}
-  >
-    <div className="max-w-7xl mx-auto">
-      <h2 className="text-center text-white text-4xl font-light tracking-widest mb-12">
-        <span className="opacity-60">CASE</span>{' '}
-        <span className="font-bold">STUDIES</span>
-      </h2>
+const CaseStudies = () => {
+  // Function to handle video speed on hover
+  const handleVideoHover = (videoElement, speed) => {
+    if (videoElement) {
+      videoElement.playbackRate = speed;
+    }
+  };
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 md:gap-y-8">
-        {caseStudies.map((item, index) => (
-          <div
-            key={item.id}
-            className={`relative group transition-transform duration-300 hover:-translate-y-2 ${
-              index % 2 === 0 ? 'md:mt-0' : 'md:mt-28'
-            }`}
-          >
-            {/* Laptop Container */}
-            <div className="relative">
-              {/* Laptop Frame */}
-              <div className="relative bg-gray-800 rounded-t-lg p-3 shadow-2xl">
-                {/* Laptop Screen Bezel */}
-                <div className="bg-black rounded-lg p-2 relative overflow-hidden">
-                  {/* Video Content */}
-                  <div className="relative w-full h-[280px] bg-gray-900 rounded overflow-hidden">
-                    <video
-                      src={item.video}
-                      className="absolute inset-0 w-full h-full object-cover"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                    />
+  return (
+    <section
+      className="py-16 px-4"
+      style={{
+        backgroundImage: "url('/Case-studies.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-center text-white text-4xl font-light tracking-widest mb-12">
+          <span className="opacity-60">CASE</span>{' '}
+          <span className="font-bold">STUDIES</span>
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 md:gap-y-8">
+          {caseStudies.map((item, index) => (
+            <div
+              key={item.id}
+              className={`relative group transition-transform duration-300 hover:-translate-y-2 ${
+                index % 2 === 0 ? 'md:mt-0' : 'md:mt-28'
+              }`}
+            >
+              {/* Laptop Container */}
+              <div className="relative">
+                {/* Laptop Frame */}
+                <div className="relative bg-gray-800 rounded-t-lg p-3 shadow-2xl">
+                  {/* Laptop Screen Bezel */}
+                  <div className="bg-black rounded-lg p-2 relative overflow-hidden">
+                    {/* Video Content */}
+                    <div 
+                      className="relative w-full h-[280px] bg-gray-900 rounded overflow-hidden"
+                      onMouseEnter={(e) => {
+                        const video = e.currentTarget.querySelector('video');
+                        handleVideoHover(video, 3); // 2x speed on hover
+                      }}
+                      onMouseLeave={(e) => {
+                        const video = e.currentTarget.querySelector('video');
+                        handleVideoHover(video, 2); // Normal speed when not hovering
+                      }}
+                    >
+                      <video
+                        src={item.video}
+                        className="absolute inset-0 w-full h-full object-cover transition-all duration-300"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Laptop Bottom */}
+                  <div className="h-2 bg-gray-700 rounded-b-lg relative">
+                    <div className="absolute left-1/2 top-0 transform -translate-x-1/2 w-8 h-1 bg-gray-600 rounded-b"></div>
                   </div>
                 </div>
                 
-                {/* Laptop Bottom */}
-                <div className="h-2 bg-gray-700 rounded-b-lg relative">
-                  <div className="absolute left-1/2 top-0 transform -translate-x-1/2 w-8 h-1 bg-gray-600 rounded-b"></div>
+                {/* Laptop Base */}
+                <div className="relative">
+                  <div className="w-full h-4 bg-gradient-to-b from-gray-700 to-gray-800 rounded-b-2xl shadow-lg"></div>
+                  <div className="absolute inset-x-0 bottom-0 h-2 bg-gray-900 rounded-b-2xl transform scale-95"></div>
                 </div>
               </div>
-              
-              {/* Laptop Base */}
-              <div className="relative">
-                <div className="w-full h-4 bg-gradient-to-b from-gray-700 to-gray-800 rounded-b-2xl shadow-lg"></div>
-                <div className="absolute inset-x-0 bottom-0 h-2 bg-gray-900 rounded-b-2xl transform scale-95"></div>
+
+              {/* Content */}
+              <div className="py-6 text-white flex flex-col gap-3">
+                <h3 className="text-xl font-semibold">{item.title}</h3>
+                <p className="text-sm opacity-90 leading-relaxed">{item.desc}</p>
               </div>
             </div>
-
-            {/* Content */}
-            <div className="py-6 text-white flex flex-col gap-3">
-              <h3 className="text-xl font-semibold">{item.title}</h3>
-              <p className="text-sm opacity-90 leading-relaxed">{item.desc}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default CaseStudies;
