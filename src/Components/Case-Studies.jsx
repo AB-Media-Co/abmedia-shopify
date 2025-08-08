@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 const caseStudies = [
   {
@@ -27,37 +27,20 @@ const caseStudies = [
   },
 ];
 
+/** ▶️ LazyVideo: no autoplay; parent controls play/pause on hover/touch */
 const LazyVideo = ({ src, onVideoLoad, ...props }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const [isInView, setIsInView] = useState(false);
   const videoRef = useRef(null);
-  const containerRef = useRef(null);
 
-  // Play/pause based on viewport
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const io = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { rootMargin: '200px' } // pre-play a bit early
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  // Attach listeners
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     const handleCanPlay = () => {
       setIsLoading(false);
-      // default speed 1x
-      video.playbackRate = 2;
-      video.play().catch(() => {});
-      onVideoLoad?.(video);
+      video.playbackRate = 1;
+      onVideoLoad && onVideoLoad(video);
     };
 
     const handleError = () => {
@@ -66,33 +49,16 @@ const LazyVideo = ({ src, onVideoLoad, ...props }) => {
       console.error('Video loading failed:', src);
     };
 
-    // more reliable than 'canplay' for stalling
     video.addEventListener('canplaythrough', handleCanPlay);
     video.addEventListener('error', handleError);
-    // NOTE: don't call video.load() here; let browser manage buffering
-
     return () => {
       video.removeEventListener('canplaythrough', handleCanPlay);
       video.removeEventListener('error', handleError);
     };
   }, [src, onVideoLoad]);
 
-  // React to visibility
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (isInView) {
-      v.play().catch(() => {});
-    } else {
-      v.pause();
-    }
-  }, [isInView]);
-
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-[280px] bg-gray-900 rounded overflow-hidden"
-    >
+    <div className="relative w-full h-[280px] bg-gray-900 rounded overflow-hidden">
       {hasError ? (
         <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
           <div className="text-center text-red-400">
@@ -108,13 +74,11 @@ const LazyVideo = ({ src, onVideoLoad, ...props }) => {
         className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${
           isLoading ? 'opacity-0' : 'opacity-100'
         }`}
-        autoPlay
+        // no autoplay — play only on hover/touch
         muted
         loop
         playsInline
-        // More buffering to avoid stalls
-        preload="auto"
-        // Optional: avoid AirPlay dialog on iOS
+        preload="metadata"
         disableRemotePlayback
         {...props}
       />
@@ -125,7 +89,6 @@ const LazyVideo = ({ src, onVideoLoad, ...props }) => {
 const CaseStudies = () => {
   const videoRefs = useRef([]);
 
-  // make sure base speed is 1x when video registers
   const handleVideoLoad = (videoElement, index) => {
     if (videoElement) {
       videoElement.playbackRate = 1;
@@ -133,22 +96,40 @@ const CaseStudies = () => {
     }
   };
 
-  // helper to safely set speed
   const setSpeed = (video, rate) => {
     if (!video) return;
-    // clamp a bit for mobile Safari stability
     const target = Math.min(rate, 2);
-    if (video.readyState >= 3) {
+    if (video.readyState >= 2) {
+      video.playbackRate = target;
+    } else {
       video.playbackRate = target;
     }
   };
 
-  // ensure only the hovered one speeds up
-  const accelerateOnly = (idx) => {
+  const focusOne = (idx) => {
     videoRefs.current.forEach((v, i) => {
       if (!v) return;
-      v.playbackRate = i === idx ? Math.min(1.75, 2) : 1;
+      if (i !== idx) {
+        v.pause();
+        v.playbackRate = 1;
+      }
     });
+  };
+
+  const playOn = (index) => {
+    const v = videoRefs.current[index];
+    if (!v) return;
+    focusOne(index);
+    v.muted = true; // instant play without prompt
+    v.play().catch(() => {});
+    setSpeed(v, 20);
+  };
+
+  const pauseOff = (index) => {
+    const v = videoRefs.current[index];
+    if (!v) return;
+    v.pause();
+    setSpeed(v, 1);
   };
 
   return (
@@ -181,18 +162,14 @@ const CaseStudies = () => {
                 <div className="relative bg-gray-800 rounded-t-lg p-3 shadow-2xl">
                   {/* Laptop Screen Bezel */}
                   <div className="bg-black rounded-lg p-2 relative overflow-hidden">
-                    {/* Video Content with Hover Effects */}
+                    {/* Video Content */}
                     <div
                       className="relative"
-                      onMouseEnter={() => {
-                        const video = videoRefs.current[index];
-                        setSpeed(video, 1.75); // ~1.75x on hover (stable)
-                        accelerateOnly(index);
-                      }}
-                      onMouseLeave={() => {
-                        const video = videoRefs.current[index];
-                        setSpeed(video, 1); // back to normal
-                      }}
+                      onPointerEnter={() => playOn(index)}
+                      onPointerLeave={() => pauseOff(index)}
+                      onTouchStart={() => playOn(index)}
+                      onTouchEnd={() => pauseOff(index)}
+                      onTouchCancel={() => pauseOff(index)}
                     >
                       <LazyVideo
                         src={item.video}
