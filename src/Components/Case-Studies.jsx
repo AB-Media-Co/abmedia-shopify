@@ -3,97 +3,96 @@ import React, { useRef, useEffect, useState } from 'react';
 const caseStudies = [
   {
     id: 1,
-    video: '/case-studies/arahul.mp4',
+    video: 'https://shopify.abmediaco.com/case-studies/arahul.mp4',
     title: 'Arohul',
     desc: `Migrated to Shopify, built conversion-focused funnel → Result: 7X ROAS with Shopify + Meta + WhatsApp in < 90 days`,
   },
   {
     id: 2,
-    video: '/case-studies/bythenature.mp4',
+    video: 'https://shopify.abmediaco.com/case-studies/bythenature.mp4',
     title: 'By The Nature',
     desc: `Shopify theme + UGC integration + WhatsApp COD flows → Result: 42% CR improvement within 6 weeks of relaunch`,
   },
   {
     id: 3,
-    video: '/case-studies/mahajan.mp4',
+    video: 'https://shopify.abmediaco.com/case-studies/mahajan.mp4',
     title: 'Mahajan Electronics',
     desc: `Full redesign + Razorpay/Shiprocket integration + retargeting setup + ZipCode Validator → Result: ₹10 Lakh+ generated in a single month, Meta ROAS scaled 15X`,
   },
   {
     id: 4,
-    video: '/case-studies/juhi-nanda.mp4',
+    video: 'https://shopify.abmediaco.com/case-studies/juhi-nanda.mp4',
     title: 'Juhi Nanda',
     desc: `Shopify + Interakt + bundled offers + checkout optimization → Result: 5.6X blended ROAS, COD failure reduced by 27%`,
   },
 ];
 
-// Lazy Loading Video Component
 const LazyVideo = ({ src, onVideoLoad, ...props }) => {
-  const [isInView, setIsInView] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const videoRef = useRef(null);
   const containerRef = useRef(null);
 
+  // Play/pause based on viewport
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
+    const el = containerRef.current;
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { rootMargin: '200px' } // pre-play a bit early
     );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
+  // Attach listeners
   useEffect(() => {
-    if (isInView && videoRef.current) {
-      const video = videoRef.current;
-      
-      const handleCanPlay = () => {
-        setIsLoading(false);
-        video.play().catch(console.error);
-        if (onVideoLoad) onVideoLoad(video);
-      };
+    const video = videoRef.current;
+    if (!video) return;
 
-      const handleError = () => {
-        setIsLoading(false);
-        setHasError(true);
-        console.error('Video loading failed:', src);
-      };
+    const handleCanPlay = () => {
+      setIsLoading(false);
+      // default speed 1x
+      video.playbackRate = 2;
+      video.play().catch(() => {});
+      onVideoLoad?.(video);
+    };
 
-      video.addEventListener('canplay', handleCanPlay);
-      video.addEventListener('error', handleError);
-      video.load();
+    const handleError = () => {
+      setIsLoading(false);
+      setHasError(true);
+      console.error('Video loading failed:', src);
+    };
 
-      return () => {
-        video.removeEventListener('canplay', handleCanPlay);
-        video.removeEventListener('error', handleError);
-      };
+    // more reliable than 'canplay' for stalling
+    video.addEventListener('canplaythrough', handleCanPlay);
+    video.addEventListener('error', handleError);
+    // NOTE: don't call video.load() here; let browser manage buffering
+
+    return () => {
+      video.removeEventListener('canplaythrough', handleCanPlay);
+      video.removeEventListener('error', handleError);
+    };
+  }, [src, onVideoLoad]);
+
+  // React to visibility
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (isInView) {
+      v.play().catch(() => {});
+    } else {
+      v.pause();
     }
-  }, [isInView, src, onVideoLoad]);
+  }, [isInView]);
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className="relative w-full h-[280px] bg-gray-900 rounded overflow-hidden"
     >
-      {!isInView || isLoading ? (
-        <div className="absolute inset-0 bg-gray-800 animate-pulse flex items-center justify-center">
-          <div className="text-center">
-            <div className="w-12 h-12 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-            <span className="text-gray-400 text-sm">Loading video...</span>
-          </div>
-        </div>
-      ) : null}
-      
       {hasError ? (
         <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
           <div className="text-center text-red-400">
@@ -103,21 +102,22 @@ const LazyVideo = ({ src, onVideoLoad, ...props }) => {
         </div>
       ) : null}
 
-      {isInView && (
-        <video
-          ref={videoRef}
-          src={src}
-          className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${
-            isLoading ? 'opacity-0' : 'opacity-100'
-          }`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          {...props}
-        />
-      )}
+      <video
+        ref={videoRef}
+        src={src}
+        className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${
+          isLoading ? 'opacity-0' : 'opacity-100'
+        }`}
+        autoPlay
+        muted
+        loop
+        playsInline
+        // More buffering to avoid stalls
+        preload="auto"
+        // Optional: avoid AirPlay dialog on iOS
+        disableRemotePlayback
+        {...props}
+      />
     </div>
   );
 };
@@ -125,16 +125,30 @@ const LazyVideo = ({ src, onVideoLoad, ...props }) => {
 const CaseStudies = () => {
   const videoRefs = useRef([]);
 
-  // Function to handle video speed on hover
-  const handleVideoHover = (videoElement, speed) => {
-    if (videoElement && videoElement.readyState >= 2) {
-      videoElement.playbackRate = speed;
+  // make sure base speed is 1x when video registers
+  const handleVideoLoad = (videoElement, index) => {
+    if (videoElement) {
+      videoElement.playbackRate = 1;
+      videoRefs.current[index] = videoElement;
     }
   };
 
-  // Handle video load callback
-  const handleVideoLoad = (videoElement, index) => {
-    videoRefs.current[index] = videoElement;
+  // helper to safely set speed
+  const setSpeed = (video, rate) => {
+    if (!video) return;
+    // clamp a bit for mobile Safari stability
+    const target = Math.min(rate, 2);
+    if (video.readyState >= 3) {
+      video.playbackRate = target;
+    }
+  };
+
+  // ensure only the hovered one speeds up
+  const accelerateOnly = (idx) => {
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      v.playbackRate = i === idx ? Math.min(1.75, 2) : 1;
+    });
   };
 
   return (
@@ -168,15 +182,16 @@ const CaseStudies = () => {
                   {/* Laptop Screen Bezel */}
                   <div className="bg-black rounded-lg p-2 relative overflow-hidden">
                     {/* Video Content with Hover Effects */}
-                    <div 
+                    <div
                       className="relative"
-                      onMouseEnter={(e) => {
+                      onMouseEnter={() => {
                         const video = videoRefs.current[index];
-                        handleVideoHover(video, 3); // 3x speed on hover
+                        setSpeed(video, 1.75); // ~1.75x on hover (stable)
+                        accelerateOnly(index);
                       }}
-                      onMouseLeave={(e) => {
+                      onMouseLeave={() => {
                         const video = videoRefs.current[index];
-                        handleVideoHover(video, 2); // Normal speed when not hovering
+                        setSpeed(video, 1); // back to normal
                       }}
                     >
                       <LazyVideo
@@ -185,13 +200,13 @@ const CaseStudies = () => {
                       />
                     </div>
                   </div>
-                  
+
                   {/* Laptop Bottom */}
                   <div className="h-2 bg-gray-700 rounded-b-lg relative">
                     <div className="absolute left-1/2 top-0 transform -translate-x-1/2 w-8 h-1 bg-gray-600 rounded-b"></div>
                   </div>
                 </div>
-                
+
                 {/* Laptop Base */}
                 <div className="relative">
                   <div className="w-full h-4 bg-gradient-to-b from-gray-700 to-gray-800 rounded-b-2xl shadow-lg"></div>
