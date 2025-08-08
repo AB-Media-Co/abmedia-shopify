@@ -4,40 +4,61 @@ const caseStudies = [
   {
     id: 1,
     video: '/case-studies/arahul.mp4',
+    poster: '/case-studies/arahul.png',
     title: 'Arohul',
     desc: `Migrated to Shopify, built conversion-focused funnel → Result: 7X ROAS with Shopify + Meta + WhatsApp in < 90 days`,
   },
   {
     id: 2,
     video: '/case-studies/bythenature.mp4',
+    poster: '/case-studies/bythenature.png',
     title: 'By The Nature',
     desc: `Shopify theme + UGC integration + WhatsApp COD flows → Result: 42% CR improvement within 6 weeks of relaunch`,
   },
   {
     id: 3,
     video: '/case-studies/mahajan.mp4',
+    poster: '/case-studies/mahajan.png',
     title: 'Mahajan Electronics',
     desc: `Full redesign + Razorpay/Shiprocket integration + retargeting setup + ZipCode Validator → Result: ₹10 Lakh+ generated in a single month, Meta ROAS scaled 15X`,
   },
   {
     id: 4,
     video: '/case-studies/juhi-nanda.mp4',
+    poster: '/case-studies/juhi-nanda.png',
     title: 'Juhi Nanda',
     desc: `Shopify + Interakt + bundled offers + checkout optimization → Result: 5.6X blended ROAS, COD failure reduced by 27%`,
   },
 ];
 
-/** ▶️ LazyVideo: no autoplay; parent controls play/pause on hover/touch */
-const LazyVideo = ({ src, onVideoLoad, ...props }) => {
+/** Turn "/path/name.mp4" → "/path/name.png" (or .jpg) if poster not passed */
+function toPoster(videoSrc, ext = 'png') {
+  if (!videoSrc) return '';
+  const [path] = String(videoSrc).split('?');
+  return path.replace(/\.[^/.]+$/, `.${ext}`);
+}
+
+/** ▶️ LazyVideo: shows image until video is ready; parent controls play/pause */
+const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', ...props }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [posterSrc, setPosterSrc] = useState(() => poster || toPoster(src));
+  const triedJpgRef = useRef(false);
   const videoRef = useRef(null);
 
+  // reset when src/poster changes
+  useEffect(() => {
+    setPosterSrc(poster || toPoster(src));
+    setIsLoading(true);
+    setHasError(false);
+  }, [src, poster]);
+
+  // mark ready when video can actually play
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const handleCanPlay = () => {
+    const handleReady = () => {
       setIsLoading(false);
       video.playbackRate = 1;
       onVideoLoad && onVideoLoad(video);
@@ -49,39 +70,63 @@ const LazyVideo = ({ src, onVideoLoad, ...props }) => {
       console.error('Video loading failed:', src);
     };
 
-    video.addEventListener('canplaythrough', handleCanPlay);
+    video.addEventListener('loadeddata', handleReady);
+    video.addEventListener('canplaythrough', handleReady);
+    video.addEventListener('playing', handleReady);
     video.addEventListener('error', handleError);
+
     return () => {
-      video.removeEventListener('canplaythrough', handleCanPlay);
+      video.removeEventListener('loadeddata', handleReady);
+      video.removeEventListener('canplaythrough', handleReady);
+      video.removeEventListener('playing', handleReady);
       video.removeEventListener('error', handleError);
     };
   }, [src, onVideoLoad]);
 
   return (
     <div className="relative w-full h-[280px] bg-gray-900 rounded overflow-hidden">
-      {hasError ? (
-        <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
-          <div className="text-center text-red-400">
-            <div className="text-2xl mb-2">⚠️</div>
-            <span className="text-sm">Video failed to load</span>
-          </div>
-        </div>
-      ) : null}
+      {/* Poster until video ready */}
+      <img
+        src={posterSrc}
+        alt={alt}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+          isLoading ? 'opacity-100' : 'opacity-0'
+        }`}
+        loading="lazy"
+        decoding="async"
+        onError={() => {
+          // try .jpg if .png missing
+          if (!triedJpgRef.current) {
+            triedJpgRef.current = true;
+            setPosterSrc(poster ? poster.replace(/\.[^/.]+$/, '.jpg') : toPoster(src, 'jpg'));
+          }
+        }}
+        aria-hidden={isLoading ? 'false' : 'true'}
+      />
 
+      {/* Actual video */}
       <video
         ref={videoRef}
         src={src}
-        className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${
+        poster={posterSrc}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
           isLoading ? 'opacity-0' : 'opacity-100'
         }`}
-        // no autoplay — play only on hover/touch
+        // No autoplay — parent triggers play on hover/touch
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         disableRemotePlayback
         {...props}
       />
+
+      {/* Optional tiny error badge */}
+      {hasError && (
+        <div className="absolute bottom-2 right-2 px-2 py-1 text-xs rounded bg-black/60 text-red-300">
+          Video failed to load
+        </div>
+      )}
     </div>
   );
 };
@@ -98,14 +143,12 @@ const CaseStudies = () => {
 
   const setSpeed = (video, rate) => {
     if (!video) return;
-    const target = Math.min(rate, 2);
-    if (video.readyState >= 2) {
-      video.playbackRate = target;
-    } else {
-      video.playbackRate = target;
-    }
+    const target = Math.min(Math.max(rate, 0.25), 2); // clamp
+    // apply even if not fully ready; browser will respect once ready
+    video.playbackRate = target;
   };
 
+  // pause others, keep only one active
   const focusOne = (idx) => {
     videoRefs.current.forEach((v, i) => {
       if (!v) return;
@@ -120,9 +163,9 @@ const CaseStudies = () => {
     const v = videoRefs.current[index];
     if (!v) return;
     focusOne(index);
-    v.muted = true; // instant play without prompt
+    v.muted = true; // instant play
     v.play().catch(() => {});
-    setSpeed(v, 20);
+    setSpeed(v, 6); // a bit faster on hover
   };
 
   const pauseOff = (index) => {
@@ -165,14 +208,23 @@ const CaseStudies = () => {
                     {/* Video Content */}
                     <div
                       className="relative"
-                      onPointerEnter={() => playOn(index)}
-                      onPointerLeave={() => pauseOff(index)}
+                      // Desktop / pointer (ignore touch for these)
+                      onPointerEnter={(e) => {
+                        if (e.pointerType === 'touch') return;
+                        playOn(index);
+                      }}
+                      onPointerLeave={(e) => {
+                        if (e.pointerType === 'touch') return;
+                        pauseOff(index);
+                      }}
+                      // Touch devices
                       onTouchStart={() => playOn(index)}
                       onTouchEnd={() => pauseOff(index)}
                       onTouchCancel={() => pauseOff(index)}
                     >
                       <LazyVideo
                         src={item.video}
+                        poster={item.poster} // explicit poster (png); jpg fallback handled inside
                         onVideoLoad={(video) => handleVideoLoad(video, index)}
                       />
                     </div>
