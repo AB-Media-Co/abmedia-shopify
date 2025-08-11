@@ -198,17 +198,17 @@ const CaseStudies = () => {
             >
               {/* ===== MOBILE: only video (autoplay) ===== */}
               <div className="block md:hidden">
-                <LazyVideo
+                <video
                   src={item.video}
-                  poster={item.poster}
-                  onVideoLoad={(video) => handleVideoLoad(video, index)}
-                  autoPlay         // <- mobile autoplay
-                  muted            // required for mobile autoplay
-                  playsInline      // required for iOS
+                  className="w-full h-[280px] object-cover"
+                  autoPlay
+                  muted
+                  playsInline
                   loop
+                  preload="auto"
                 />
               </div>
-
+              
               {/* ===== DESKTOP: current laptop UI ===== */}
               <div className="hidden md:block">
                 {/* Laptop Container */}
