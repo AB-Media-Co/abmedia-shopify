@@ -2,3 +2,17 @@
 html {
   scroll-behavior: smooth;
 }
+
+@layer utilities {
+  @keyframes marquee-ltr {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); } /* one full set width */
+  }
+  @keyframes marquee-rtl {
+    from { transform: translateX(0); }
+    to   { transform: translateX(50%); }
+  }
+
+  .animate-marquee      { animation: marquee-ltr var(--marquee-duration,30s) linear infinite; }
+  .animate-marquee-rtl  { animation: marquee-rtl var(--marquee-duration,30s) linear infinite; }
+}

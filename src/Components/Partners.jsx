@@ -1,12 +1,12 @@
 import React from 'react';
 
 const partners = [
-  { id: 1, name: 'Shopify Partners',       logo: '/Icons/shopify.svg' },
-  { id: 2, name: 'Razorpay',               logo: '/Icons/razorpay.svg' },
-  { id: 3, name: 'Shiprocket',             logo: '/Icons/shiprocket.svg' },
-  { id: 4, name: 'Google Ads Certified',   logo: '/Icons/Google-Ads-Certified.svg' },
-  { id: 5, name: 'Meta Business Partner',  logo: '/Icons/meta.svg' },
-  { id: 6, name: 'Shopify Plus Partner',   logo: '/Icons/shopify-plus.svg' },
+  { id: 1, name: 'Shopify Partners',       logo: '/Icons/shopify-min.svg' },
+  { id: 2, name: 'Razorpay',               logo: '/Icons/razorpay-min.svg' },
+  { id: 3, name: 'Shiprocket',             logo: '/Icons/shiprocket-min.svg' },
+  { id: 4, name: 'Google Ads Certified',   logo: '/Icons/Google-Ads-Certified-min.svg' },
+  { id: 5, name: 'Meta Business Partner',  logo: '/Icons/meta-min.svg' },
+  { id: 6, name: 'Shopify Plus Partner',   logo: '/Icons/shopify-plus-min.svg' },
 ];
 
 export default function Partners() {

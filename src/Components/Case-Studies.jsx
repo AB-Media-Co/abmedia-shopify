@@ -200,7 +200,7 @@ const CaseStudies = () => {
               <div className="block md:hidden">
                 <video
                   src={item.video}
-                  className="w-full h-[280px] object-cover"
+                  className="w-full "
                   autoPlay
                   muted
                   playsInline

@@ -23,10 +23,10 @@ function App() {
     <>
       <Header />
       <button
-        className="bg-[#D5FF3F] cursor-pointer md:hidden font-medium text-3xl fixed z-50 w-full bottom-0 text-black px-8 py-2 hover:bg-lime-300 transition-colors"
+        className="bg-[#D5FF3F] cursor-pointer md:hidden font-medium text-xl fixed z-50 w-full bottom-0 text-black px-8 py-2 hover:bg-lime-300 transition-colors"
         onClick={() => setShowForm(true)}
       >
-        Audit My Store
+        Book Strategy Call Now
       </button>
 
       <ABMediaLanding />
@@ -43,7 +43,7 @@ function App() {
       <FAQComponent />
       <ABMediaFooter />
 
-       <ContactForm
+      <ContactForm
         isPopup={true}
         isOpen={showForm}
         onClose={() => setShowForm(false)}
