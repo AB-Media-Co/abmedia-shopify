@@ -39,7 +39,7 @@ function toPoster(videoSrc, ext = 'png') {
 }
 
 /** ▶️ LazyVideo: shows image until video is ready; parent controls play/pause */
-const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', ...props }) => {
+const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', isMobile = false, ...props }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [posterSrc, setPosterSrc] = useState(() => poster || toPoster(src));
@@ -62,6 +62,12 @@ const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', ...pr
       setIsLoading(false);
       video.playbackRate = 1;
       onVideoLoad && onVideoLoad(video);
+      
+      // Auto-play on mobile when video is ready
+      if (isMobile) {
+        video.muted = true;
+        video.play().catch(() => {});
+      }
     };
 
     const handleError = () => {
@@ -81,10 +87,10 @@ const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', ...pr
       video.removeEventListener('playing', handleReady);
       video.removeEventListener('error', handleError);
     };
-  }, [src, onVideoLoad]);
+  }, [src, onVideoLoad, isMobile]);
 
   return (
-    <div className="relative w-full h-[280px] bg-gray-900 rounded overflow-hidden">
+    <div className="relative w-full h-[200px] sm:h-[240px] md:h-[280px] bg-gray-900 rounded overflow-hidden">
       {/* Poster until video ready */}
       <img
         src={posterSrc}
@@ -112,7 +118,8 @@ const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', ...pr
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
           isLoading ? 'opacity-0' : 'opacity-100'
         }`}
-        // No autoplay — parent triggers play on hover/touch
+        // Auto-play only on mobile
+        autoPlay={isMobile}
         muted
         loop
         playsInline
@@ -133,6 +140,18 @@ const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', ...pr
 
 const CaseStudies = () => {
   const videoRefs = useRef([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleVideoLoad = (videoElement, index) => {
     if (videoElement) {
@@ -177,7 +196,7 @@ const CaseStudies = () => {
 
   return (
     <section
-      className="py-16 px-4"
+      className="py-8 sm:py-12 md:py-16 px-4"
       style={{
         backgroundImage: "url('/Case-studies.png')",
         backgroundSize: 'cover',
@@ -186,12 +205,12 @@ const CaseStudies = () => {
       }}
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-center text-white text-4xl font-light tracking-widest mb-12">
+        <h2 className="text-center text-white text-2xl sm:text-3xl md:text-4xl font-light tracking-widest mb-8 sm:mb-10 md:mb-12">
           <span className="opacity-60">CASE</span>{' '}
           <span className="font-bold">STUDIES</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 md:gap-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 lg:gap-24 md:gap-y-8">
           {caseStudies.map((item, index) => (
             <div
               key={item.id}
@@ -202,51 +221,52 @@ const CaseStudies = () => {
               {/* Laptop Container */}
               <div className="relative">
                 {/* Laptop Frame */}
-                <div className="relative bg-gray-800 rounded-t-lg p-3 shadow-2xl">
+                <div className="relative bg-gray-800 rounded-t-lg p-2 sm:p-3 shadow-2xl">
                   {/* Laptop Screen Bezel */}
-                  <div className="bg-black rounded-lg p-2 relative overflow-hidden">
+                  <div className="bg-black rounded-lg p-1 sm:p-2 relative overflow-hidden">
                     {/* Video Content */}
                     <div
                       className="relative"
-                      // Desktop / pointer (ignore touch for these)
+                      // Desktop / pointer (ignore touch for these) - only apply on non-mobile
                       onPointerEnter={(e) => {
-                        if (e.pointerType === 'touch') return;
+                        if (e.pointerType === 'touch' || isMobile) return;
                         playOn(index);
                       }}
                       onPointerLeave={(e) => {
-                        if (e.pointerType === 'touch') return;
+                        if (e.pointerType === 'touch' || isMobile) return;
                         pauseOff(index);
                       }}
-                      // Touch devices
-                      onTouchStart={() => playOn(index)}
-                      onTouchEnd={() => pauseOff(index)}
-                      onTouchCancel={() => pauseOff(index)}
+                      // Touch devices - only apply on non-mobile
+                      onTouchStart={() => !isMobile && playOn(index)}
+                      onTouchEnd={() => !isMobile && pauseOff(index)}
+                      onTouchCancel={() => !isMobile && pauseOff(index)}
                     >
                       <LazyVideo
                         src={item.video}
-                        poster={item.poster} // explicit poster (png); jpg fallback handled inside
+                        poster={item.poster}
                         onVideoLoad={(video) => handleVideoLoad(video, index)}
+                        isMobile={isMobile}
                       />
                     </div>
                   </div>
 
                   {/* Laptop Bottom */}
-                  <div className="h-2 bg-gray-700 rounded-b-lg relative">
-                    <div className="absolute left-1/2 top-0 transform -translate-x-1/2 w-8 h-1 bg-gray-600 rounded-b"></div>
+                  <div className="h-1.5 sm:h-2 bg-gray-700 rounded-b-lg relative">
+                    <div className="absolute left-1/2 top-0 transform -translate-x-1/2 w-6 sm:w-8 h-0.5 sm:h-1 bg-gray-600 rounded-b"></div>
                   </div>
                 </div>
 
                 {/* Laptop Base */}
                 <div className="relative">
-                  <div className="w-full h-4 bg-gradient-to-b from-gray-700 to-gray-800 rounded-b-2xl shadow-lg"></div>
-                  <div className="absolute inset-x-0 bottom-0 h-2 bg-gray-900 rounded-b-2xl transform scale-95"></div>
+                  <div className="w-full h-3 sm:h-4 bg-gradient-to-b from-gray-700 to-gray-800 rounded-b-2xl shadow-lg"></div>
+                  <div className="absolute inset-x-0 bottom-0 h-1.5 sm:h-2 bg-gray-900 rounded-b-2xl transform scale-95"></div>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="py-6 text-white flex flex-col gap-3">
-                <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="text-sm opacity-90 leading-relaxed">{item.desc}</p>
+              <div className="py-4 sm:py-5 md:py-6 text-white flex flex-col gap-2 sm:gap-3">
+                <h3 className="text-lg sm:text-xl font-semibold">{item.title}</h3>
+                <p className="text-xs sm:text-sm opacity-90 leading-relaxed">{item.desc}</p>
               </div>
             </div>
           ))}

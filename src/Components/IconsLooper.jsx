@@ -25,8 +25,8 @@ const IconsLooper = () => {
                                  min-w-[50px] xs:min-w-[60px] sm:min-w-[70px] md:min-w-[80px] lg:min-w-[100px] xl:min-w-[120px]
                                  max-w-[60px] xs:max-w-[70px] sm:max-w-[80px] md:max-w-[100px] lg:max-w-[120px] xl:max-w-[140px]
                                  object-contain 
-                                 transition-transform duration-300 hover:scale-110
-                                opacity-70 hover:opacity-100"
+                                 transition-transform duration-300
+                                "
                         onError={(e) => {
                             // Fallback for missing icons
                             e.target.style.display = 'none';
@@ -82,10 +82,7 @@ const IconsLooper = () => {
                 }
 
                 /* Pause animation on hover for better UX */
-                .animate-scroll:hover {
-                    animation-play-state: paused;
-                }
-
+                
                 /* Responsive animation speeds */
                 @media (max-width: 320px) {
                     .animate-scroll {
