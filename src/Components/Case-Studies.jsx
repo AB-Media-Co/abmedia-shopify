@@ -210,9 +210,9 @@ const CaseStudies = () => {
               </div>
               
               {/* ===== DESKTOP: current laptop UI ===== */}
-              <div className="hidden md:block">
+              <div className="">
                 {/* Laptop Container */}
-                <div className="relative">
+                <div className="relative hidden md:block">
                   {/* Laptop Frame */}
                   <div className="relative bg-gray-800 rounded-t-lg p-3 shadow-2xl">
                     {/* Laptop Screen Bezel */}
