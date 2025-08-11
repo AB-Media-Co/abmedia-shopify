@@ -53,6 +53,10 @@ const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', isMob
     setHasError(false);
   }, [src, poster]);
 
+
+
+
+
   // mark ready when video can actually play
   useEffect(() => {
     const video = videoRef.current;
@@ -88,6 +92,10 @@ const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', isMob
       video.removeEventListener('error', handleError);
     };
   }, [src, onVideoLoad, isMobile]);
+
+
+
+  
 
   return (
     <div className="relative w-full h-[200px] sm:h-[240px] md:h-[280px] bg-gray-900 rounded overflow-hidden">
@@ -144,14 +152,16 @@ const CaseStudies = () => {
 
   // Detect if device is mobile
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  const checkMobile = () => {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    setIsMobile(window.innerWidth < 768 || isTouch);
+  };
+  
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+  return () => window.removeEventListener('resize', checkMobile);
+}, []);
+  
 
   const handleVideoLoad = (videoElement, index) => {
     if (videoElement) {

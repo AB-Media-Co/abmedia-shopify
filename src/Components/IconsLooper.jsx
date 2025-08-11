@@ -22,8 +22,8 @@ const IconsLooper = () => {
                         alt={iconName}
                         className="w-auto 
                                  h-8 lg:h-10 xl:h-12
-                                 min-w-[50px] xs:min-w-[60px] sm:min-w-[70px] md:min-w-[80px] lg:min-w-[100px] xl:min-w-[120px]
-                                 max-w-[60px] xs:max-w-[70px] sm:max-w-[80px] md:max-w-[100px] lg:max-w-[120px] xl:max-w-[140px]
+                                 min-w-[80px] xs:min-w-[60px] sm:min-w-[70px] md:min-w-[80px] lg:min-w-[100px] xl:min-w-[120px]
+                                 max-w-[100px] xs:max-w-[70px] sm:max-w-[80px] md:max-w-[100px] lg:max-w-[120px] xl:max-w-[140px]
                                  object-contain 
                                  transition-transform duration-300
                                 "
@@ -133,11 +133,6 @@ const IconsLooper = () => {
                 }
 
                 /* Extra small screens custom breakpoint */
-                @media (max-width: 374px) {
-                    .xs\\:h-6 { height: 1.5rem; }
-                    .xs\\:min-w-\\[60px\\] { min-width: 60px; }
-                    .xs\\:max-w-\\[70px\\] { max-width: 70px; }
-                }
             `}</style>
         </div>
     );
