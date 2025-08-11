@@ -31,14 +31,12 @@ const caseStudies = [
   },
 ];
 
-/** Turn "/path/name.mp4" → "/path/name.png" (or .jpg) if poster not passed */
 function toPoster(videoSrc, ext = 'png') {
   if (!videoSrc) return '';
   const [path] = String(videoSrc).split('?');
   return path.replace(/\.[^/.]+$/, `.${ext}`);
 }
 
-/** ▶️ LazyVideo: shows image until video is ready; parent controls play/pause */
 const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', isMobile = false, ...props }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -66,11 +64,11 @@ const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', isMob
       setIsLoading(false);
       video.playbackRate = 1;
       onVideoLoad && onVideoLoad(video);
-      
+
       // Auto-play on mobile when video is ready
       if (isMobile) {
         video.muted = true;
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       }
     };
 
@@ -95,7 +93,7 @@ const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', isMob
 
 
 
-  
+
 
   return (
     <div className="relative w-full h-[200px] sm:h-[240px] md:h-[280px] bg-gray-900 rounded overflow-hidden">
@@ -103,9 +101,9 @@ const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', isMob
       <img
         src={posterSrc}
         alt={alt}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-          isLoading ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`absolute inset-0 w-full h-full object-cover ${isMobile ? 'hidden' : ''} transition-opacity duration-300 ${isLoading ? 'opacity-100' : 'opacity-0'
+
+          }`}
         loading="lazy"
         decoding="async"
         onError={() => {
@@ -123,9 +121,8 @@ const LazyVideo = ({ src, poster, onVideoLoad, alt = 'Case study preview', isMob
         ref={videoRef}
         src={src}
         poster={posterSrc}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-          isLoading ? 'opacity-0' : 'opacity-100'
-        }`}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'
+          }`}
         // Auto-play only on mobile
         autoPlay={isMobile}
         muted
@@ -152,16 +149,16 @@ const CaseStudies = () => {
 
   // Detect if device is mobile
   useEffect(() => {
-  const checkMobile = () => {
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    setIsMobile(window.innerWidth < 768 || isTouch);
-  };
-  
-  checkMobile();
-  window.addEventListener('resize', checkMobile);
-  return () => window.removeEventListener('resize', checkMobile);
-}, []);
-  
+    const checkMobile = () => {
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      setIsMobile(window.innerWidth < 768 || isTouch);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
 
   const handleVideoLoad = (videoElement, index) => {
     if (videoElement) {
@@ -193,7 +190,7 @@ const CaseStudies = () => {
     if (!v) return;
     focusOne(index);
     v.muted = true; // instant play
-    v.play().catch(() => {});
+    v.play().catch(() => { });
     setSpeed(v, 6); // a bit faster on hover
   };
 
@@ -224,9 +221,8 @@ const CaseStudies = () => {
           {caseStudies.map((item, index) => (
             <div
               key={item.id}
-              className={`relative group transition-transform duration-300 hover:-translate-y-2 ${
-                index % 2 === 0 ? 'md:mt-0' : 'md:mt-28'
-              }`}
+              className={`relative group transition-transform duration-300 hover:-translate-y-2 ${index % 2 === 0 ? 'md:mt-0' : 'md:mt-28'
+                }`}
             >
               {/* Laptop Container */}
               <div className="relative">
