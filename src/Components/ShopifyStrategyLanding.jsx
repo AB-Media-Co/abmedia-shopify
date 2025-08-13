@@ -28,9 +28,9 @@ export default function ShopifyStrategyLanding() {
                                 <Phone size={20} />
                             </button>
 
-                            <button className="cursor-pointer  text-white font-semibold px-8 py-2 border border-white  transition-colors duration-200 flex items-center justify-center gap-2">
+                            {/* <button className="cursor-pointer  text-white font-semibold px-8 py-2 border border-white  transition-colors duration-200 flex items-center justify-center gap-2">
                                 Download the Audit PDF
-                            </button>
+                            </button> */}
                         </div>
                     </div>
 
