@@ -171,7 +171,7 @@ const ShopifyBuildLanding = () => {
             </div>
             <div className="mt-14 md:block hidden">
                 <p className="text-gray-400 text-lg">
-                    Starting At <span className="text-white font-bold text-xl">₹99,999 + GST For Full Shopify Builds </span>.
+                    Starting At <span className="text-white font-bold text-xl">$999 + GST For Full Shopify Builds </span>.
                 </p>
             </div>
         </div>

@@ -31,7 +31,7 @@ const PricingComponent = () => {
                         <div className="mb-6">
                             <span className="text-gray-400 text-sm mb-2 block">Starts From</span>
                             <div className="text-white text-5xl md:text-6xl font-medium">
-                                ₹99,999
+                                $999
                             </div>
                         </div>
 
