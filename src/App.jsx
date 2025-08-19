@@ -11,7 +11,7 @@ function App() {
         <Route path="/" element={<Page1 />} />
 
         {/* Future me aur pages add karna ho to yaha add kar sakte ho */}
-        <Route path="/IN" element={<Page2 />} />
+        <Route path="/in" element={<Page2 />} />
       </Routes>
     </Router>
   )
