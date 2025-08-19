@@ -1,7 +1,7 @@
 import React from 'react';
 import PopupButton from './PopupButton';
 
-const PricingComponent = () => {
+const PricingComponent = ({cost=" $999"}) => {
     return (
         <div className="min-h-screen bg-black relative flex items-center justify-center p-4">
             {/* Green radial gradient background */}
@@ -31,7 +31,8 @@ const PricingComponent = () => {
                         <div className="mb-6">
                             <span className="text-gray-400 text-sm mb-2 block">Starts From</span>
                             <div className="text-white text-5xl md:text-6xl font-medium">
-                                $999
+                                {cost}
+
                             </div>
                         </div>
 
