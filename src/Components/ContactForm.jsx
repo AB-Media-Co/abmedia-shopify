@@ -205,16 +205,15 @@ const ContactForm = ({
                     if (isPopup) onClose();
 
                     toast.success('🎉 Form submitted successfully! Check your email for confirmation.', {
-                        duration: 5000
+                        duration: 2000  // Reduced duration
                     });
 
-                    setTimeout(() => {
-                        if (path && path.includes('/in')) {
-                            window.location.href = '/calendly';
-                        } else {
-                            window.location.href = 'https://calendly.com/ab-abmedia/shopify';
-                        }
-                    }, 3000);
+                    // Immediate redirect without setTimeout
+                    if (path && path.includes('/in')) {
+                        window.location.href = '/calendly';
+                    } else {
+                        window.location.href = 'https://calendly.com/ab-abmedia/shopify';
+                    }
 
                 } catch (submitError) {
                     console.error('Form submission error:', submitError);
