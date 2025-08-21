@@ -12,7 +12,8 @@ const ContactForm = ({
     title = "Let's Build Your Shopify Store!",
     buttonText = "Submit & Book Strategy Call",
     onSubmit = (data) => console.log(data),
-    className = ""
+    className = "",
+    path = ""
 }) => {
     // State
     const [step, setStep] = useState(1);
@@ -208,7 +209,11 @@ const ContactForm = ({
                     });
 
                     setTimeout(() => {
-                        window.location.href = 'https://calendly.com/ab-abmedia/shopify';
+                        if (path && path.includes('/in')) {
+                            window.location.href = '/calendly';
+                        } else {
+                            window.location.href = 'https://calendly.com/ab-abmedia/shopify';
+                        }
                     }, 3000);
 
                 } catch (submitError) {

@@ -14,6 +14,7 @@ import ServicesGrid from '../Components/ServicesGrid'
 import ShopifyServicesSection from '../Components/ShopifyBuildLanding'
 import ShopifyStrategyLanding from '../Components/ShopifyStrategyLanding'
 import ContactForm from '../Components/ContactForm'
+import ABMediaLandingPage2 from '../Components/ABMediaLandingPage2'
 
 
 const Page2 = () => {
@@ -29,7 +30,7 @@ const Page2 = () => {
                 Book Strategy Call Now
             </button>
 
-            <ABMediaLanding />
+            <ABMediaLandingPage2 />
             <IconsLooper />
             <ShopifyServicesSection cost='₹99,999' />
 
