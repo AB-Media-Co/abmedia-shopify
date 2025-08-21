@@ -97,7 +97,8 @@ const ServicesGrid = () => (
             </div> */}
             <div className="mt-8 sm:mt-12 flex justify-center px-4">
            
-            <PopupButton className='bg-[#D5FF3F] text-black font-semibold px-4 sm:px-6 py-3 text-sm sm:text-base tracking-wide shadow-md transition-all duration-200 hover:bg-[#c4ef2f] hover:shadow-lg w-full sm:w-auto max-w-sm sm:max-w-none text-center'/>
+            <PopupButton
+             className='bg-[#D5FF3F] text-black font-semibold px-4 sm:px-6 py-3 text-sm sm:text-base tracking-wide shadow-md transition-all duration-200 hover:bg-[#c4ef2f] hover:shadow-lg w-full sm:w-auto max-w-sm sm:max-w-none text-center'/>
             </div>
 
         </div>

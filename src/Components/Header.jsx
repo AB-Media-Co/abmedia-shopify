@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PopupButton from './PopupButton';
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,8 +12,8 @@ const Header = () => {
     const navItems = [
         { name: 'Home', href: 'https://abmediaco.com/' },
         { name: 'About us', href: 'https://abmediaco.com/who-we-are/' },
-        { 
-            name: 'Marketing', 
+        {
+            name: 'Marketing',
             href: '#marketing',
             hasDropdown: true,
             dropdownItems: [
@@ -25,8 +26,8 @@ const Header = () => {
                 { name: 'Data and Analytics', href: 'https://abmediaco.com/data-and-analytics/' }
             ]
         },
-        { 
-            name: 'Strategy', 
+        {
+            name: 'Strategy',
             href: '#strategy',
             hasDropdown: true,
             dropdownItems: [
@@ -36,8 +37,8 @@ const Header = () => {
                 { name: 'Programmatic Advertising', href: 'https://abmediaco.com/programmatic-advertising-agency-in-india/' }
             ]
         },
-        { 
-            name: 'Development', 
+        {
+            name: 'Development',
             href: '#development',
             hasDropdown: true,
             dropdownItems: [
@@ -54,13 +55,17 @@ const Header = () => {
         <div>
             {/* Top Banner */}
             <div className='bg-[#262626] border-b border-gray-700'>
-                <div className="hidden max-w-7xl text-white mx-auto justify-end items-center py-2 sm:py-3 px-4 sm:px-6 md:flex">
+                <div className="hidden max-w-7xl  mx-auto justify-end items-center py-2 sm:py-3 px-4 sm:px-6 md:flex">
                     <span className="text-xs sm:text-sm text-gray-300 mr-4 sm:mr-6 font-normal">
                         Are You Ready To Grow Your Business ?
                     </span>
-                    <button className="bg-white cursor-pointer text-gray-900 px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold hover:bg-gray-100 transition-colors duration-200 rounded-sm">
+                    {/* <button className="bg-white cursor-pointer text-gray-900 px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold hover:bg-gray-100 transition-colors duration-200 rounded-sm">
                         Get In Touch
-                    </button>
+                    </button> */}
+                    <PopupButton
+                        text="Get In Touch"
+                        className='bg-white cursor-pointer text-gray-900 px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold hover:bg-gray-100 transition-colors duration-200 rounded-sm' />
+
                 </div>
             </div>
 
@@ -85,7 +90,7 @@ const Header = () => {
                                                 <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                                             </svg>
                                         </a>
-                                        
+
                                         {/* Dropdown Menu */}
                                         <div className="absolute left-0 top-full mt-1 w-60 bg-white  shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50">
                                             <div className="py-1">
@@ -114,7 +119,7 @@ const Header = () => {
                     </nav>
 
                     {/* Mobile Menu Button */}
-                    <button 
+                    <button
                         onClick={toggleMobileMenu}
                         className="lg:hidden text-white hover:text-gray-300 transition-colors duration-200 p-2"
                         aria-label="Toggle mobile menu"
@@ -132,9 +137,8 @@ const Header = () => {
                 </div>
 
                 {/* Mobile Navigation Menu */}
-                <div className={`lg:hidden transition-all duration-300 ease-in-out ${
-                    isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
-                }`}>
+                <div className={`lg:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+                    }`}>
                     <nav className="pt-4 pb-2 space-y-2">
                         {navItems.map((item) => (
                             <div key={item.name} className="border-b border-gray-700">
@@ -148,7 +152,7 @@ const Header = () => {
                                 </a>
                             </div>
                         ))}
-                        
+
                         {/* Mobile CTA Button */}
                         <div className="pt-4 px-2">
                             <button className="w-full bg-white text-gray-900 px-6 py-3 text-sm font-semibold hover:bg-gray-100 transition-colors duration-200 rounded-sm">
