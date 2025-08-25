@@ -43,7 +43,7 @@ const ContactForm = ({
         ADMIN_TEMPLATE: 'template_nqjwc3p', // Admin template ID
         USER_TEMPLATE: 'template_lklhfm8', // Customer template ID
         PUBLIC_KEY: 'vO2gQ4pr0ZZywV8If',           // Your EmailJS public key
-        ADMIN_EMAIL: 'prakash@abmediaco.com'      // Your email address
+        ADMIN_EMAIL: 'ab@abmediaco.com'      // Your email address
     };
 
     // Initialize EmailJS
