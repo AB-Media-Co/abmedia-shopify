@@ -18,7 +18,7 @@ export default function ABMediaFooter() {
 
                     {/* Company Info */}
                     <div className="lg:col-span-1 gap-2">
-                        <a href='#' className="text-4xl font-bold mb-4">ab media</a>
+                        <a href='#' className=""> <img src="/abm-w.png" alt="" className='w-[250px]' /></a>
                         <p className="text-gray-300 text-sm mt-4 leading-relaxed">
                             A Full-Service Performance Marketing Agency In
                             Gurugram, New Delhi, India. We Have Launched
@@ -50,26 +50,9 @@ export default function ABMediaFooter() {
                         </div>
                     </div>
 
-                    <div className="max-w-xs md:hidden">
+                    {/* <div className="max-w-xs md:hidden">
                         <h4 className="text-white text-lg font-medium tracking-wide mb-4">QUICK LINK</h4>
-                        {/* <ul className="space-y-2">
-                            {[
-                                'PPC SERVICES',
-                                'SOCIAL MEDIA MARKETING SERVICES',
-                                'PERFORMANCE MARKETING',
-                                'DEVELOPMENT',
-                            ].map((label) => (
-                                <li key={label}>
-                                    <a
-                                        href="#"
-                                        className="text-gray-400 hover:text-white transition-colors text-sm block whitespace-nowrap"
-                                    >
-                                        {label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul> */}
-
+                       
                         {serviceLinks.map((link, idx) => (
                             <React.Fragment key={link.href}>
                                 <a
@@ -81,7 +64,7 @@ export default function ABMediaFooter() {
                                 {idx < serviceLinks.length - 1 && <span className="text-gray-600">|</span>}
                             </React.Fragment>
                         ))}
-                    </div>
+                    </div> */}
 
                     {/* Social Media */}
                     <div className="lg:col-span-1">
@@ -129,7 +112,7 @@ export default function ABMediaFooter() {
             </div>
 
             {/* Services Menu */}
-            <div className=" border-gray-800 hidden md:block">
+            {/* <div className=" border-gray-800 hidden md:block">
                 <div className="max-w-7xl mx-auto px-6 pb-4">
                     <nav className="flex  gap-6 lg:gap-8 text-xl font-normal">
                        
@@ -147,7 +130,7 @@ export default function ABMediaFooter() {
                     </nav>
 
                 </div>
-            </div>
+            </div> */}
 
             {/* <h2
                 className="text-7xl md:text-9xl text-center font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-[#d1d1d1] via-[#8a8a8a] to-[#1f1f1f] drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]"

@@ -64,6 +64,7 @@ const Header = () => {
                     </button> */}
                     <PopupButton
                         text="Get In Touch"
+                        belowtextcss='hidden'
                         className='bg-white cursor-pointer text-gray-900 px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold hover:bg-gray-100 transition-colors duration-200 rounded-sm' />
 
                 </div>
@@ -72,14 +73,12 @@ const Header = () => {
             {/* Main Header */}
             <header className="px-4 sm:px-6 py-3 sm:py-4 lg:py-5 bg-black shadow-lg">
                 <div className="flex justify-between items-center max-w-7xl mx-auto">
-                    {/* Logo */}
-                    <a href="#" className="text-xl cursor-pointer sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">
-                        <span className="text-white">ab</span>
-                        <span className="text-white ml-1 sm:ml-2">media</span>
+                    <a href="#" className='m-auto'>
+                       <img src="/abm-w.png" alt="" className='w-[250px]' />
                     </a>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center text-sm xl:text-base">
+                    {/* <nav className="hidden lg:flex items-center text-sm xl:text-base">
                         {navItems.map((item, index) => (
                             <React.Fragment key={item.name}>
                                 {item.hasDropdown ? (
@@ -91,7 +90,6 @@ const Header = () => {
                                             </svg>
                                         </a>
 
-                                        {/* Dropdown Menu */}
                                         <div className="absolute left-0 top-full mt-1 w-60 bg-white  shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50">
                                             <div className="py-1">
                                                 {item.dropdownItems.map((dropdownItem, dropIndex) => (
@@ -116,10 +114,10 @@ const Header = () => {
                                 )}
                             </React.Fragment>
                         ))}
-                    </nav>
+                    </nav> */}
 
                     {/* Mobile Menu Button */}
-                    <button
+                    {/* <button
                         onClick={toggleMobileMenu}
                         className="lg:hidden text-white hover:text-gray-300 transition-colors duration-200 p-2"
                         aria-label="Toggle mobile menu"
@@ -133,7 +131,7 @@ const Header = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         )}
-                    </button>
+                    </button> */}
                 </div>
 
                 {/* Mobile Navigation Menu */}
